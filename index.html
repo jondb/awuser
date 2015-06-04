@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="makeCsv">
+<head>
+  <meta charset="utf-8">
+  <title>Generate AW User CSV</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+</head>
+<body>
+
+  <div class="container" ng-controller="makeCsvCtrl">
+    <div class="row">
+      <div class="col-xs-12">
+        <form name="answerForm">
+          <table class="table">
+            <tr>
+              <th ng-repeat="field in fields">{{ field }}</th>
+            </tr>
+            <tr ng-repeat="user in users track by $index">
+              <td>
+                <input type="text" ng-model="user['Email Address*']" ng-change="changed($index, 'Email Address*')" name="{{$index}}.Email Address*">
+              </td>
+              <td>
+                <input type="text" ng-model="user['Last Name*']" ng-change="changed($index, 'Last Name*')" name="{{$index}}.Last Name*">
+              </td>
+              <td>
+                <input type="text" ng-model="user['First Name*']" ng-change="changed($index, 'First Name*')" name="{{$index}}.First Name*">
+              </td>
+              <td>
+                <input type="text" ng-model="user['Username*']" ng-change="changed($index, 'Username*')" name="{{$index}}.Username*">
+              </td>
+            </tr>
+          </table>
+        </form>
+        <div>
+          <p><button type="button" class="btn btn-default" ng-click="addUserRow()">Add Another</button></p>
+          <h3>All done?</h3>
+          <p><button type="button" class="btn btn-default" ng-csv="getArray()" filename="users.csv">Download CSV</button></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-csv/0.3.3/ng-csv.js"></script>
+  <script src="app.js"></script>
+</bod>
+</html>
